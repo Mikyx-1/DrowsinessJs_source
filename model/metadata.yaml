@@ -1,0 +1,15 @@
+description: Ultralytics last model trained on dataset.yml
+author: Ultralytics
+license: AGPL-3.0 https://ultralytics.com/license
+date: '2023-08-15T00:45:22.989142'
+version: 8.0.154
+stride: 32
+task: detect
+batch: 1
+imgsz:
+- 640
+- 640
+names:
+  0: Eyes_Open
+  1: Eyes_Close
+  2: Eyes_Occluded

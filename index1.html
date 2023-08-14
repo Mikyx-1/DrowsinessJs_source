@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <video id="video" src="" autoplay="true"></video>
+    </div>
+
+    <script>
+        const video = document.getElementById("video");
+
+        navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
+            video.srcObject = stream;
+            video.play(); // Start playing the video
+        }).catch((error) => {
+            console.log("An error has occurred");
+        });
+
+        video.addEventListener("timeupdate", () => {
+            console.log("hello");
+        });
+    </script>
+</body>
+</html>

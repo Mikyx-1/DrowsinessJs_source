@@ -1,0 +1,36 @@
+<!-- 1. Load the webcam:                          DONE        -->
+<!-- 2. Load the model:                           DONE        -->
+<!-- 3. Run the model on video stream             DONE        -->
+<!-- 4. Process the output of the result:                 -->
+<!-- 5. Visualise the result:                             -->
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Drowsiness Detection with TensorflowJs </title>
+        <h1> Drowsiness Detection with TensorflowJs </h1>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>
+        <style>
+            h1 {
+                font-family: sans-serif;
+                color: tomato;
+                justify-content: center;
+                text-align: center;
+            }
+
+            #video {
+                display: block; /* Set the webcam to the middle of the page */
+                margin: auto;
+                max-width: 100%;  /* Scale the size proportionally */
+                max-height: 100%;
+            }
+        </style>
+    </head>
+    <div>
+        <video id="video" src="" autoplay="true"></video>
+    </div>
+
+    
+    <script src="script.js"></script>
+</html>
