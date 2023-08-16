@@ -3,6 +3,9 @@ const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
 
+let classes = ["Eyes Open", "Eyes Closed", "Eyes Occluded"];
+let colours = ["green", "red", "yellow"]
+
 navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
     video.srcObject = stream;
     video.play();
@@ -42,10 +45,6 @@ const preprocess = (source, modelWidth, modelHeight) => {
     return [input, xRatio, yRatio];
   };
 
-
-
-
-
 let output_boxes = null;
 let output_scores = null;
 let selected_classes = null;
@@ -72,29 +71,31 @@ video.addEventListener("timeupdate", async () => {
   output_boxes = selected_boxes.gather(nms, 0).dataSync();
   output_scores = selected_scores.gather(nms, 0).dataSync();
   output_classes = selected_classes.gather(nms, 0).dataSync();
-
-
-  console.log(output_boxes.length);
-  console.log(output_scores.length);
-  console.log(output_classes.length);
-
 })
 
 function drawVideoOnCanvas(){
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-  // if(output_boxes != null)
-  // {
+  if(output_boxes != null)
+  {
+      for(let i = 0; i<output_boxes.length; i += 4)
+      {
+        let output_box = output_boxes.slice(i, i+4)
+        let [xc, yc, w, h] = output_boxes;
+        let x_l = parseInt(xc-w/2);
+        let y_l = parseInt(yc - h/2);
+        let output_score = output_scores[parseInt(i/4)];
+        let output_class = classes[output_classes[parseInt(i/4)]]; 
+        ctx.strokeStyle = colours[output_classes[parseInt(i/4)]];
+        ctx.lineWidth = "4";
+        ctx.strokeRect(x_l, y_l, w, h);
+        ctx.stroke();
 
-  //     let [xc, yc, w, h] = output_boxes;
-  //     let x_l = parseInt(xc-w/2);
-  //     let y_l = parseInt(yc - h/2);
-  //     ctx.strokeStyle = "green";
-  //     ctx.lineWidth = "3";
-  //     ctx.strokeRect(x_l, y_l, w, h);
-  //     ctx.stroke();
-
-  // }
-
+        text = output_class.toString() + "  " + output_score.toString().slice(0, 4);
+        ctx.fillStyle = colours[output_classes[parseInt(i/4)]];
+        ctx.font = "20px Arial";
+        ctx.fillText(text, x_l, y_l-10);
+      }
+  }
 
   requestAnimationFrame(drawVideoOnCanvas);
 }
@@ -103,8 +104,6 @@ function drawVideoOnCanvas(){
 }); 
 
 
-
-// Hello Triet
 
 
 
