@@ -4,7 +4,6 @@
 <!-- 4. Process the output of the result:                 -->
 <!-- 5. Visualise the result:                             -->
 
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,16 +18,26 @@
                 text-align: center;
             }
 
-            #video {
-                display: block; /* Set the webcam to the middle of the page */
-                margin: auto;
-                max-width: 100%;  /* Scale the size proportionally */
-                max-height: 100%;
-            }
+        #video-container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        }
+        
+        #video {
+            position: relative;
+            display: none;
+        }
+
+        #canvas {
+            position: relative;
+        }
+
         </style>
     </head>
-    <div>
-        <video id="video" src="" autoplay="true"></video>
+    <div id="video-container">
+        <video id="video" width="640" height="480" src="" autoplay="true"></video>
+        <canvas id="canvas" width="640" height="480"></canvas>
     </div>
 
     
